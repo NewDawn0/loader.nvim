@@ -9,7 +9,7 @@
 
   outputs = { self, nixpkgs, utils }: {
     overlays.default = final: prev: {
-      ndnvim = self.packages.${prev.system}.default;
+      loader-nvim = self.packages.${prev.system}.default;
     };
     packages = utils.lib.eachSystem { inherit nixpkgs; } (pkgs: {
       default = pkgs.vimUtils.buildVimPlugin {
