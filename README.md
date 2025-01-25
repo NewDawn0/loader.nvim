@@ -21,12 +21,12 @@ To use `loader.nvim`, include the flake in your `flake.nix` and overlay the `vim
 ```nix
 {
   overlays.default = final: prev: {
-    vimplugin-loader.nvim = final.callPackage ./path/to/loader-nvim { };
+    vimplugin-loader-nvim = final.callPackage ./path/to/loader-nvim { };
   };
 }
 ```
 
-Once the flake is installed, the `vimplugin-loader.nvim` module will be available for use in Neovim.
+Once the flake is installed, the `vimplugin-loader-nvim` module will be available for use in Neovim.
 
 ---
 
@@ -36,7 +36,7 @@ Below is a Lua example of integrating `loader.nvim` into your Neovim configurati
 
 ```lua
 -- Import the plugin
-local loader = require("vimplugin-loader.nvim")
+local loader = require("vimplugin-loader-nvim")
 
 -- Load the plugin and set the `:LoaderInfo` command
 loader.setup({

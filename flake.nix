@@ -13,7 +13,7 @@
     };
     packages = utils.lib.eachSystem { inherit nixpkgs; } (pkgs: {
       default = pkgs.vimUtils.buildVimPlugin {
-        name = "loader.nvim";
+        name = "loader-nvim";
         src = ./.;
       };
     });
