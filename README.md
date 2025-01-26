@@ -20,13 +20,16 @@ To use `loader.nvim`, include the flake in your `flake.nix` and overlay the `vim
 
 ```nix
 {
-  overlays.default = final: prev: {
-    vimplugin-loader-nvim = final.callPackage ./path/to/loader-nvim { };
-  };
+    pkgs = system: import nixpkgs {
+        inherit system;
+        overlays = [ inputs.loader.overlays.default ];
+    };
 }
 ```
 
 Once the flake is installed, the `vimplugin-loader-nvim` module will be available for use in Neovim.
+
+👉 A minimal example config can be found in the `./example` dir
 
 ---
 
@@ -95,6 +98,8 @@ To declare plugins, use the `packages.<name>.opt` array of the Neovim package ov
 ## 🚀 Commands
 
 - **`:LoaderInfo`**: Opens the plugin loader UI to display the status of all plugins.
+
+![LoaderInfo](./.github/loaderInfo.png)
 
 ---
 
