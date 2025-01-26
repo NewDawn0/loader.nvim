@@ -36,7 +36,7 @@ Below is a Lua example of integrating `loader.nvim` into your Neovim configurati
 
 ```lua
 -- Import the plugin
-local loader = require("vimplugin-loader-nvim")
+local loader = require("loader")
 
 -- Load the plugin and set the `:LoaderInfo` command
 loader.setup({
