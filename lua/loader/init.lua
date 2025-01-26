@@ -53,7 +53,6 @@ local function loadPlugin(plugins, name, config)
 
 	-- Load the plugin
 	vim.cmd("packadd " .. name)
-	print("Loaded " .. name)
 
 	-- Run the plugin's configuration function
 	if config.config then
