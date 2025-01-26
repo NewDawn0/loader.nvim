@@ -2,7 +2,7 @@
   description =
     "A minimal & fast plugin loader for nixified neovim configurations";
 
-  inputs = { utils.url = "github:NewDawn0/nixUtils"; };
+  inputs.utils.url = "github:NewDawn0/nixUtils";
 
   outputs = { self, utils }: {
     overlays.default = final: prev: {
