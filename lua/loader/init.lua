@@ -71,11 +71,11 @@ M.load = function(plugins)
 		-- Handle commands
 		if config.cmds then
 			for _, cmd in ipairs(config.cmds) do
-				newCmd(cmd, function()
+				newCmd(cmd, function(args)
 					delCmd(cmd)
 					loadPlugin(plugins, name, config)
-					vim.cmd(cmd)
-				end, {})
+					vim.cmd(cmd .. " " .. args["args"])
+				end, { nargs = "*" })
 			end
 		end
 
