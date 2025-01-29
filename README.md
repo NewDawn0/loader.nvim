@@ -43,11 +43,14 @@ local loader = require("loader")
 
 -- Load the plugin and set the `:LoaderInfo` command
 loader.setup({
-	-- Override the default highlight groups
-	header = "#c797ff",      -- Header text
-	loaded = "#1df914",      -- Loaded plugins
-	notLoaded = "#dc143c",   -- Not yet loaded plugins
-	Info = "#89b4fa",        -- Additional plugin information
+    notifyOnLoad = false, -- Shows a notification each time a plugin is loaded
+    highlights = {
+        -- Override the default highlight groups
+        header = "#c797ff",      -- Header text
+        loaded = "#1df914",      -- Loaded plugins
+        notLoaded = "#dc143c",   -- Not yet loaded plugins
+        Info = "#89b4fa",        -- Additional plugin information
+    }
 })
 
 -- Define plugins to load
