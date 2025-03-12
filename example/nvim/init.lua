@@ -12,9 +12,7 @@ loader.load({
 	["nvim-treesitter"] = {
 		events = { "BufReadPre" },
 		deps = { "nvim-web-devicons" },
-		config = function()
-			require("ts")
-		end,
+		file = "ts",
 	},
 	-- Dependency
 	["nvim-web-devicons"] = {

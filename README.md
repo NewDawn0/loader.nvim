@@ -6,7 +6,7 @@
 
 ## 🔥 Features
 
-- **Lazy Loading**: Load plugins only when needed (e.g., on command execution, keybinding press, or specific events).
+- **Lazy Loading**: Load plugins only when needed (e.g., on command execution, keybinding press, filetypes or specific events).
 - **Dependency Management**: Automatically load plugin dependencies in the correct order.
 - **Customizable UI**: Displays a sleek plugin loader interface with customizable highlights.
 - **Nix Integration**: Works seamlessly with `nixpkgs` overlays to define Neovim plugins.
@@ -67,12 +67,11 @@ loader.load({
 	},
 
 	-- Example with dependencies
+    -- The file option can automatically require/import a config file
 	["indent-blankline.nvim"] = {
 		events = { "BufReadPost" },
 		deps = { "rainbow-delimiters.nvim" },
-		config = function()
-			require("configs.ibl")
-		end,
+        file = "configs.ibl" -- Runs function() require("configs.ibl") end
 	},
 
 	-- Declare dependencies explicitly
@@ -86,9 +85,9 @@ loader.load({
 
 In this example:
 
-- Plugins are lazily loaded based on `cmds`, `keys`, or `events`.
+- Plugins are lazily loaded based on `cmds`, `keys`, `filetypes`, or `events`.
 - Dependencies are declared and automatically loaded in the correct order.
-- Each plugin can have an optional `config` function to configure the plugin after it's loaded.
+- Each plugin can have an optional `config` function to configure the plugin after it's loaded or a `file` which imports a specified config file on load.
 
 ---
 
@@ -108,7 +107,7 @@ To declare plugins, use the `packages.<name>.opt` array of the Neovim package ov
 
 ## 🎨 Customization
 
-`loader.nvim` allows you to customize the UI highlights. Use the `setup` function to override the default highlight groups:
+`loader.nvim` allows you to customize the UI highlights. Use the `setup` function to setup the plugin as well as override the default highlight groups:
 
 ```lua
 loader.setup({
