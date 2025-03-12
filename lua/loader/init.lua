@@ -12,6 +12,8 @@ M.plugins = {}
 ---@field deps string[]|nil Dependencies for the plugin
 ---@field config function|nil Optional function to configure the plugin after loading
 ---@field loaded boolean Whether the plugin has been loaded or not
+---@field file string|nil The plugin config file to be imported
+---@field filetypes string[]|nil Filetypes that trigger the plugin loading
 
 -- Abbreviations for Neovim API functions
 local api = vim.api
@@ -68,6 +70,11 @@ local function loadPlugin(plugins, name, config)
 		config.config()
 	end
 
+	-- Import the plugin's configig file, if defined
+	if config.file then
+		require(config.file)
+	end
+
 	M.plugins[name].loaded = true
 end
 
@@ -109,6 +116,18 @@ M.load = function(plugins)
 				end,
 			})
 		end
+
+		-- Lazy-load plugins on specific filetyps
+		if config.filetypes then
+			local id
+			id = newAu("FileType", {
+				pattern = config.filetypes,
+				callback = function()
+					loadPlugin(plugins, name, config)
+					delAu(id)
+				end,
+			})
+		end
 	end
 end
 
@@ -138,6 +157,9 @@ M.ui = function()
 		end
 		if config.cmds then
 			table.insert(lines, "     Commands: " .. table.concat(config.cmds, ", "))
+		end
+		if config.filetypes then
+			table.insert(lines, "     Filetypes: " .. table.concat(config.filetypes, ", "))
 		end
 	end
 
