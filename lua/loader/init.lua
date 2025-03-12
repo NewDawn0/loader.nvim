@@ -184,7 +184,7 @@ M.ui = function()
 			api.nvim_buf_add_highlight(buf, 0, "loaderloaded", i - 1, 2, 3)
 		elseif line:sub(3, 3) == "x" then
 			api.nvim_buf_add_highlight(buf, 0, "loadernotLoaded", i - 1, 2, 3)
-		elseif line:find("Keybinds:") or line:find("Events:") or line:find("Commands:") then
+		elseif line:find("Keybinds:") or line:find("Events:") or line:find("Commands:") or line:find("Filetypes:") then
 			api.nvim_buf_add_highlight(buf, 0, "loaderinfo", i - 1, 0, -1)
 		end
 	end
