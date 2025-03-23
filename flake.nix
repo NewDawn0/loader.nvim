@@ -2,18 +2,15 @@
   description =
     "A minimal & fast plugin loader for nixified neovim configurations";
 
-  inputs = {
-    utils.url = "github:NewDawn0/nixUtils";
-    nixpkgs.url = "github:nixos/nixpkgs";
-  };
+  inputs.utils.url = "github:NewDawn0/nixUtils";
 
-  outputs = { self, nixpkgs, utils }: {
+  outputs = { self, utils }: {
     overlays.default = final: prev: {
       vimPlugins = prev.vimPlugins // {
         loader-nvim = self.packages.${prev.system}.default;
       };
     };
-    packages = utils.lib.eachSystem { inherit nixpkgs; } (pkgs: {
+    packages = utils.lib.eachSystem { } (pkgs: {
       default = pkgs.vimUtils.buildVimPlugin {
         name = "loader-nvim";
         src = ./.;
