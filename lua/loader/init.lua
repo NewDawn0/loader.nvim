@@ -222,9 +222,9 @@ M.setup = function(opts)
 	for key, _ in pairs(M.plugins) do
 		table.insert(completeOpts, key)
 	end
-	api.nvim_create_user_command("LoaderLoad", function(opts)
-		if M.plugins[opts.args] ~= nil then
-			loadPlugin(M.plugins, opts.args, M.plugins[opts.args])
+	api.nvim_create_user_command("LoaderLoad", function(args)
+		if M.plugins[args.args] ~= nil then
+			loadPlugin(M.plugins, args.args, M.plugins[args.args])
 		else
 			vim.notify("[loader.nvim] Plugin " .. opts.args .. "does not exist", vim.log.levels.ERROR)
 		end
