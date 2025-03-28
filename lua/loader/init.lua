@@ -217,13 +217,23 @@ M.setup = function(opts)
 		M.ui()
 	end, {})
 
+	-- Load plugin manually
+	local completeOpts = {}
+	for key, _ in pairs(M.plugins) do
+		table.insert(completeOpts, key)
+	end
 	api.nvim_create_user_command("LoaderLoad", function(name)
 		if M.plugins[name] ~= nil then
 			loadPlugin(M.plugins, name, M.plugins[name])
 		else
 			vim.notify("[loader.nvim] Plugin " .. name .. "does not exist", vim.log.levels.ERROR)
 		end
-	end, {})
+	end, {
+		nargs = 1,
+		complete = function()
+			return completeOpts
+		end,
+	})
 end
 
 return M
