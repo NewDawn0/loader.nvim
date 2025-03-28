@@ -97,12 +97,13 @@ M.load = function(plugins)
 
 		-- Lazy-load plugins on keypress
 		if config.keys then
+			local KBModOpts = table.insert(KBOpts, { desc = "[loader.nvim] load plugin " .. name })
 			for _, key in ipairs(config.keys) do
 				vim.keymap.set("n", key, function()
 					vim.keymap.del("n", key) -- Remove placeholder keymap
 					loadPlugin(plugins, name, config)
 					api.nvim_feedkeys(api.nvim_replace_termcodes(key, true, false, true), "m", true) -- Re-run keypress
-				end, KBOpts)
+				end, KBModOpts)
 			end
 		end
 
@@ -214,6 +215,14 @@ M.setup = function(opts)
 	-- Create a command to show the loader UI
 	api.nvim_create_user_command("LoaderInfo", function()
 		M.ui()
+	end, {})
+
+	api.nvim_create_user_command("LoaderLoad", function(name)
+		if M.plugins[name] ~= nil then
+			loadPlugin(M.plugins, name, M.plugins[name])
+		else
+			vim.notify("[loader.nvim] Plugin " .. name .. "does not exist", vim.log.levels.ERROR)
+		end
 	end, {})
 end
 
