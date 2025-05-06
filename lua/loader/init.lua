@@ -14,6 +14,7 @@ M.plugins = {}
 ---@field loaded boolean Whether the plugin has been loaded or not
 ---@field file string|nil The plugin config file to be imported
 ---@field filetypes string[]|nil Filetypes that trigger the plugin loading
+---@field cond boolean Whether to enable the plugin
 
 -- Abbreviations for Neovim API functions
 local api = vim.api
@@ -49,6 +50,9 @@ end
 ---@param config PluginConfig Plugin configuration
 local function loadPlugin(plugins, name, config)
 	if M.plugins[name].loaded then
+		return
+	end
+	if not (config.cond ~= false) then
 		return
 	end
 
